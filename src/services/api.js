@@ -1,15 +1,15 @@
 import axios from 'axios'
 
-const backendNode = axios.create({
+const api = axios.create({
   baseURL: 'http://localhost:4000',
   timeout: 1000,
   headers: { 'Content-Type': 'application/json' }
 })
 
-const getTest = async () => {
+const getSessions = async () => {
   try {
-    const response = await backendNode.get('/test')
-    console.log(response)
+    const response = await api.get('/sessions')
+    console.log('response', response)
     return response.data
   } catch (error) {
     console.error(error)
@@ -17,5 +17,5 @@ const getTest = async () => {
 }
 
 export {
-  getTest
+  getSessions
 }

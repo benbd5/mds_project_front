@@ -1,22 +1,20 @@
-import { useState, useEffect } from 'react'
-import { getTest } from './services/api'
+import {
+  Routes,
+  Route
+} from 'react-router-dom'
+import Home from './components/Home'
+import Navbar from './components/Navbar/Navbar'
+import Session from './pages/Session'
 
-function App() {
-  const [data, setData] = useState([])
-
-  const getData = async () => {
-    const test = await getTest()
-    console.log(test)
-    setData(test)
-    return test
-  }
-
-  useEffect(() => {
-    getData()
-  }, [])
-
+function App () {
   return (
-    <div className='App'>{data.name}</div>
+    <div className='App'>
+      <Navbar />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/sessions' element={<Session />} />
+      </Routes>
+    </div>
   )
 }
 
