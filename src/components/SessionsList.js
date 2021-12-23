@@ -1,3 +1,5 @@
+const moment = require('moment')
+
 export default function SessionsList ({ session }) {
   return (
     <div>
@@ -8,6 +10,7 @@ export default function SessionsList ({ session }) {
               <p>{item.sport}</p>
               <p>{item.description}</p>
               <p>{item.place}</p>
+              <p>{moment(item.date).format('DD/MM/YYYY')}</p>-
             </div>
           )
         })
