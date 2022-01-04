@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react/cjs/react.development'
-import SessionsList from '../components/SessionsList'
+import { useEffect, useState } from 'react'
+import SessionsList from '../components/Sessions/SessionsList'
 import { getSessions } from '../services/api'
 
 export default function Session () {

@@ -9,7 +9,15 @@ const api = axios.create({
 const getSessions = async () => {
   try {
     const response = await api.get('/sessions')
-    console.log('response', response)
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const createSession = async () => {
+  try {
+    const response = await api.post('/add')
     return response.data
   } catch (error) {
     console.error(error)
@@ -17,5 +25,6 @@ const getSessions = async () => {
 }
 
 export {
-  getSessions
+  getSessions,
+  createSession
 }

@@ -10,7 +10,8 @@ export default function SessionsList ({ session }) {
               <p>{item.sport}</p>
               <p>{item.description}</p>
               <p>{item.place}</p>
-              <p>{moment(item.date).format('DD/MM/YYYY')}</p>-
+              <p>{moment(item.date).format('DD/MM/YYYY')}</p>
+              <hr />
             </div>
           )
         })
