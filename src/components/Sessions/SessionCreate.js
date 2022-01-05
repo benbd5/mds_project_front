@@ -1,25 +1,27 @@
-import React from 'react'
 import { createSession } from '../../services/api'
 import DateInput from '../Form/DateInput'
 import SelectInput from '../Form/SelectInput'
 import TextArea from '../Form/TextArea'
 import TextInput from '../Form/TextInput'
 
-export default function SessionCreate({ data, onChange }) {
+export default function SessionCreate ({ data, onChange }) {
   const handleChange = (e) => {
     onChange({
       ...data,
       [e.target.name]: e.target.value
     })
   }
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    await createSession(data)
+  }
 
   return (
     <div>
-      <form /* onSubmit={this.handleSubmit} */>
+      <form onSubmit={handleSubmit}>
         <SelectInput
           name='sport'
           label='Sport'
-          // type='text'
           onChange={handleChange}
           value={data.sport}
         />

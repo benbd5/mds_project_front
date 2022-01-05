@@ -1,36 +1,29 @@
 import React, { useEffect, useState } from 'react'
-import { getSessions } from '../../services/api'
+import { getSportValues } from '../../services/api'
 
 export default function SelectInput (props) {
-  const [sessions, setSessions] = useState([])
+  const [sportValues, setSportValues] = useState([])
 
-  const getData = async () => {
-    const sessions = await getSessions()
-    setSessions(sessions)
+  // sportValues
+  const getDataSport = async () => {
+    const sportValues = await getSportValues()
+    setSportValues(sportValues)
   }
 
   useEffect(() => {
-    getData()
+    getDataSport()
   }, [])
 
-  // Initialisation d'un tableau vide pour y ajouter les sports et pouvoir s'en servir dans le .map pour le select option
-  const sportSelection = []
-
-  for (let i = 0; i < sessions.length; i++) {
-    const sports = sessions[i]
-    sportSelection.push(sports)
-  }
-
-  const sportList = sportSelection.length > 0 && sportSelection.map((item, i) => {
-    // console.log(sportSelection[i]._id) // Permet de retourner l'id de chaque objet
+  const sportList = sportValues.length > 0 && sportValues.map((item, i) => {
     return (
-      <option key={sportSelection[i]._id} value={item.sport}>{item.sport}</option>
+      <option key={sportValues[i]} value={item}>{item}</option>
     )
   })
 
   return (
     <div className='m-3'>
-      <select className='form-select'>
+      {/* On récupère les 'props'+props pour alimenter le onChange et modifier la valeur en fonction de l'état (du choix de l'utilisateur) */}
+      <select className='form-select' {...props} onChange={props.onChange}>
         {sportList}
       </select>
     </div>
