@@ -25,15 +25,14 @@ const getSportValues = async () => {
   }
 }
 
-/* const getOneSession = async (sessionId) => {
+const getOneSession = async (sessionId) => {
   try {
     const response = await api.get(`/session/${sessionId}`)
-    console.log('response one session', response)
     return (response.data)
   } catch (error) {
     console.error(error)
   }
-} */
+}
 
 const createSession = async (newSession) => {
   try {
@@ -44,8 +43,20 @@ const createSession = async (newSession) => {
   }
 }
 
+const patchSession = async (editSession) => {
+  try {
+    console.log('editSession', editSession)
+    const response = await api.patch('/edit_session', editSession)
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export {
   getSessions,
   getSportValues,
-  createSession
+  getOneSession,
+  createSession,
+  patchSession
 }
