@@ -1,10 +1,14 @@
+import moment from 'moment'
+import { useNavigate } from 'react-router-dom'
 import { patchSession } from '../../services/api'
 import DateInput from '../Form/DateInput'
 import SelectInput from '../Form/SelectInput'
 import TextArea from '../Form/TextArea'
 import TextInput from '../Form/TextInput'
 
-export default function SessionEdit ({ data, onChange }) {
+export default function SessionEdit({ data, onChange }) {
+  const navigate = useNavigate()
+
   const handleChange = (e) => {
     onChange({
       ...data,
@@ -12,11 +16,10 @@ export default function SessionEdit ({ data, onChange }) {
     })
   }
 
-  console.log('data', data)
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     await patchSession(data)
+    navigate('/sessions')
   }
 
   return (
@@ -49,7 +52,7 @@ export default function SessionEdit ({ data, onChange }) {
           label='Date de la session'
           type='date'
           onChange={handleChange}
-          value={data.date}
+          value={moment(data.date).format('YYYY-MM-DD')}
         />
 
         <button className='btn btn-primary' type='submit'>

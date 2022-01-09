@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { createSession } from '../../services/api'
 import DateInput from '../Form/DateInput'
 import SelectInput from '../Form/SelectInput'
@@ -5,6 +6,8 @@ import TextArea from '../Form/TextArea'
 import TextInput from '../Form/TextInput'
 
 export default function SessionCreate ({ data, onChange }) {
+  const navigate = useNavigate()
+
   const handleChange = (e) => {
     onChange({
       ...data,
@@ -14,6 +17,7 @@ export default function SessionCreate ({ data, onChange }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
     await createSession(data)
+    await navigate('/sessions')
   }
 
   return (

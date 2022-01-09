@@ -2,10 +2,11 @@ import axios from 'axios'
 
 const api = axios.create({
   baseURL: 'http://localhost:4000',
-  timeout: 1000,
+  timeout: 10000,
   headers: { 'Content-Type': 'application/json' }
 })
 
+// Sessions
 const getSessions = async () => {
   try {
     const response = await api.get('/sessions')
@@ -53,10 +54,73 @@ const patchSession = async (editSession) => {
   }
 }
 
+const deleteSession = async (id) => {
+  try {
+    console.log('id', id)
+    console.log('id', { id })
+    const response = await api.delete('/delete_session', { data: { id } })
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+// Authentification
+// Credentials = paramètres d'auth (email, passwd)
+const login = async (credentials) => {
+  try {
+    const response = await api.post('/register', credentials)
+    return response.data
+  } catch (error) {
+    throw new Error(error.message)
+  }
+}
+
+const register = async (RegisterInfos) => {
+  try {
+    const response = await api.post('/login', RegisterInfos)
+
+    // Sauvegarde du token dans le localStorage
+    if (response.data && response.data.token) {
+      window.localStorage.setItem('token', response.data.token)
+    }
+    return {
+      error: null,
+      data: response.data
+    }
+  } catch (error) {
+    console.error(error)
+    return {
+      error: error,
+      data: null
+    }
+  }
+}
+
+const getProfile = async () => {
+  try {
+    const token = window.localStorage.getItem('token')
+    if (token) {
+      const response = await api.get('/me', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      return response.data
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export {
   getSessions,
   getSportValues,
   getOneSession,
   createSession,
-  patchSession
+  patchSession,
+  deleteSession,
+  register,
+  login,
+  getProfile
 }

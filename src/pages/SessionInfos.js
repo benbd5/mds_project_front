@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import SessionInfos from '../components/Sessions/SessionInfos'
-import { getOneSession } from '../services/api'
+import { getOneSession, deleteSession } from '../services/api'
 
-export default function Sessions () {
+export default function InfosSession () {
   const [oneSession, setOneSession] = useState([])
   const { id } = useParams()
+  const navigate = useNavigate()
 
   const getData = async () => {
     const oneSession = await getOneSession(id)
@@ -16,6 +17,14 @@ export default function Sessions () {
     getData()
   }, [])
 
+  const handleDelete = async () => {
+    if (window.confirm('Voulez-vous vraiment supprimer ?')) {
+      console.log('id infos', id)
+      await deleteSession(id)
+      navigate('/sessions')
+    }
+  }
+
   return (
     <div>
       <SessionInfos oneSession={oneSession} />
@@ -24,6 +33,9 @@ export default function Sessions () {
           Modifier
         </button>
       </Link>
+      <button className='btn btn-primary' onClick={handleDelete}>
+        Supprimer
+      </button>
     </div>
   )
 }
