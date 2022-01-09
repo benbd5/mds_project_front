@@ -45,8 +45,8 @@ const createSession = async (newSession) => {
 
 const patchSession = async (editSession) => {
   try {
-    console.log('editSession', editSession)
-    const response = await api.patch('/edit_session', editSession)
+    // On renvoit l'objet session identique à celui attendu dans node.js
+    const response = await api.patch(`/edit_session/${editSession._id}`, { session: editSession })
     return response.data
   } catch (error) {
     console.error(error)

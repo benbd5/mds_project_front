@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import SessionInfos from '../components/Sessions/SessionInfos'
 import { getOneSession } from '../services/api'
 
@@ -19,6 +19,11 @@ export default function Sessions () {
   return (
     <div>
       <SessionInfos oneSession={oneSession} />
+      <Link to={`/edit-session/${id}`}>
+        <button className='btn btn-primary' type='submit'>
+          Modifier
+        </button>
+      </Link>
     </div>
   )
 }
