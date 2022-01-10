@@ -8,13 +8,14 @@ export default function InfosSession () {
   const { id } = useParams()
   const navigate = useNavigate()
 
-  const getData = async () => {
-    const oneSession = await getOneSession(id)
-    setOneSession(oneSession)
-  }
-
+  // UseEffect => https://stackoverflow.com/questions/55840294/how-to-fix-missing-dependency-warning-when-using-useeffect-react-hook
   useEffect(() => {
-    getData()
+    const getData = async () => {
+      const oneSession = await getOneSession(id)
+      setOneSession(oneSession)
+    }
+
+    getData(id)
   }, [])
 
   const handleDelete = async () => {

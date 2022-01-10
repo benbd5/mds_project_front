@@ -7,12 +7,11 @@ export default function EditSession () {
   const [oneSession, setOneSession] = useState([])
   const { id } = useParams()
 
-  const getData = async () => {
-    const oneSession = await getOneSession(id)
-    setOneSession(oneSession)
-  }
-
   useEffect(() => {
+    const getData = async () => {
+      const oneSession = await getOneSession(id)
+      setOneSession(oneSession)
+    }
     getData()
   }, [])
 

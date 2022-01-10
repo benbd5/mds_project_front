@@ -56,8 +56,6 @@ const patchSession = async (editSession) => {
 
 const deleteSession = async (id) => {
   try {
-    console.log('id', id)
-    console.log('id', { id })
     const response = await api.delete('/delete_session', { data: { id } })
     return response.data
   } catch (error) {
@@ -69,16 +67,19 @@ const deleteSession = async (id) => {
 // Credentials = paramètres d'auth (email, passwd)
 const login = async (credentials) => {
   try {
-    const response = await api.post('/register', credentials)
+    console.log('credentials', credentials)
+    const response = await api.post('/login', credentials)
+    console.log('response', response)
     return response.data
   } catch (error) {
+    console.error(error)
     throw new Error(error.message)
   }
 }
 
 const register = async (RegisterInfos) => {
   try {
-    const response = await api.post('/login', RegisterInfos)
+    const response = await api.post('/register', RegisterInfos)
 
     // Sauvegarde du token dans le localStorage
     if (response.data && response.data.token) {
