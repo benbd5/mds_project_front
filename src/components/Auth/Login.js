@@ -16,7 +16,6 @@ export default function Login ({ submit, error }) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('formData', formData)
     submit(formData)
   }
 
@@ -24,8 +23,6 @@ export default function Login ({ submit, error }) {
     <div className='container'>
       <h2>Se connecter</h2>
       <form onSubmit={handleSubmit}>
-        <br />
-        Se connecter
         <br />
         <TextInput
           type='email'

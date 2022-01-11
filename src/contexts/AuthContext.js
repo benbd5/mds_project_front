@@ -1,11 +1,11 @@
 import { createContext, useEffect, useContext, useReducer } from 'react'
-import { login } from '../../services/api'
+import { login } from '../services/api'
 
 /**
  * Création du context, lorsque l'on s'abonnera à cet objet, il lira la valeur actuelle du contexte depuis
  * le Provider le plus proche situé dans le haut de l'arborescence
  */
-const AuthContext = createContext()
+const AuthContext = createContext(null)
 
 const actionTypes = {
   LOGIN: 'LOGIN',
@@ -26,14 +26,11 @@ const AuthReducer = (state, action) => {
   switch (action.type) {
     case actionTypes.LOGIN:
       return {
-        ...initalState,
-        token: action.data.token,
-        user: action.data.user
+        ...initalState, token: action.data.token, user: action.data.user
       }
     case actionTypes.ERROR:
       return {
-        ...initalState,
-        error: action.data.error
+        ...initalState, error: action.data.error
       }
     case actionTypes.LOGOUT:
       // On vide le localstorage et retourne l'état initial = null

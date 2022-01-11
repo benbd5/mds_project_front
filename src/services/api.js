@@ -68,7 +68,7 @@ const deleteSession = async (id) => {
 const login = async (credentials) => {
   try {
     console.log('credentials', credentials)
-    const response = await api.post('/login', credentials)
+    const response = await api.post('/auth/login', credentials)
     console.log('response', response)
     return response.data
   } catch (error) {
@@ -79,8 +79,9 @@ const login = async (credentials) => {
 
 const register = async (RegisterInfos) => {
   try {
-    const response = await api.post('/register', RegisterInfos)
-
+    console.log('RegisterInfos', RegisterInfos)
+    const response = await api.post('/auth/register', RegisterInfos)
+    console.log('response', response)
     // Sauvegarde du token dans le localStorage
     if (response.data && response.data.token) {
       window.localStorage.setItem('token', response.data.token)
@@ -102,7 +103,7 @@ const getProfile = async () => {
   try {
     const token = window.localStorage.getItem('token')
     if (token) {
-      const response = await api.get('/me', {
+      const response = await api.get('/profile', {
         headers: {
           Authorization: `Bearer ${token}`
         }

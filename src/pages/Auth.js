@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
 import Register from '../components/Auth/Register'
 import Login from '../components/Auth/Login'
-import Profile from '../components/Auth/Profile'
+import Profile from '../components/Auth/UserProfile'
 
 import { getProfile, register } from '../services/api'
 
-import { actionTypes, loginUser, useAuth } from '../components/contexts/AuthContext'
+import { actionTypes, loginUser, useAuth } from '../contexts/AuthContext'
 
-export default function Auth () {
+export default function Auth() {
   // Initialisation des états locaux
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [isRegister, setIsRegister] = useState(false)
@@ -57,13 +57,13 @@ export default function Auth () {
               {
                 isRegister
                   ? <Register
-                      submit={handleSubmit}
-                      error={error}
-                    />
+                    submit={handleSubmit}
+                    error={error}
+                  />
                   : <Login
-                      submit={handleSubmit}
-                      error={error}
-                    />
+                    submit={handleSubmit}
+                    error={error}
+                  />
               }
               <a
                 href='#'
@@ -72,7 +72,7 @@ export default function Auth () {
                 {isRegister ? "J'ai déjà un compte" : "Je n'ai pas de compte"}
               </a>
             </div>
-            )
+          )
       }
       <button onClick={handleLoadProfile}>Load Profile</button>
       <p>{profil && JSON.stringify(profil)}</p>
