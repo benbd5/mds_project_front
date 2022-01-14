@@ -9,10 +9,9 @@ import CreateSession from './pages/CreateSession'
 import EditSession from './pages/EditSession'
 import Sessions from './pages/Sessions'
 import { AuthProvider } from './contexts/AuthContext'
-import Auth from './pages/Auth'
-import Register from './components/Auth/Register'
-import Login from './components/Auth/Login'
-import Profile from './pages/Profile'
+import UserRegister from './pages/UserRegister'
+import UserLogin from './pages/UserLogin'
+import UserProfile from './pages/UserProfile'
 
 function App () {
   return (
@@ -21,11 +20,9 @@ function App () {
         <Navbar />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/' element={<Auth />}>
-            <Route path='/auth/register' element={<Register />} />
-            <Route path='/auth/login' element={<Login />} />
-          </Route>
-          <Route path='/profile' element={<Profile />} />
+          <Route path='/auth/register' element={<UserRegister />} />
+          <Route path='/auth/login' element={<UserLogin />} />
+          <Route path='/profile' element={<UserProfile />} />
           <Route path='/sessions' element={<Sessions />} />
           <Route path='/session/:id' element={<SessionInfos />} />
           <Route path='/create-sessions' element={<CreateSession />} />

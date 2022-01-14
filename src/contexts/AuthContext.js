@@ -64,7 +64,6 @@ const useAuth = () => {
 const loginUser = async (credentials, dispatch) => {
   try {
     const data = await login(credentials)
-    console.log('data', data)
     dispatch({
       type: actionTypes.LOGIN,
       data: {

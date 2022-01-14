@@ -102,6 +102,8 @@ const register = async (RegisterInfos) => {
 const getProfile = async () => {
   try {
     const token = window.localStorage.getItem('token')
+    console.log('window.localStorage', window.localStorage)
+    console.log('token', token)
     if (token) {
       const response = await api.get('/profile', {
         headers: {
