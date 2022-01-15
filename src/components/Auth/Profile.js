@@ -1,12 +1,11 @@
 import React from 'react'
-import { getProfile } from '../../services/api'
 
-export default function Profile ({ userProfile }) {
-  console.log('profile', userProfile)
-  getProfile()
+export default function Profile ({ logout, userProfile }) {
+  console.log('userProfile', userProfile)
   return (
     <div>
       <h2>Vous êtes connecté</h2>
+      <button onClick={logout}>Se déconnecter</button>
       <p>{userProfile && JSON.stringify(userProfile)}</p>
     </div>
   )

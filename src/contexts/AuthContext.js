@@ -1,14 +1,15 @@
 import { createContext, useEffect, useContext, useReducer } from 'react'
-import { login } from '../services/api'
+import { login, register } from '../services/api'
 
 /**
  * Création du context, lorsque l'on s'abonnera à cet objet, il lira la valeur actuelle du contexte depuis
  * le Provider le plus proche situé dans le haut de l'arborescence
  */
-const AuthContext = createContext(null)
+const AuthContext = createContext()
 
 const actionTypes = {
   LOGIN: 'LOGIN',
+  REGISTER: 'REGISTER',
   LOGOUT: 'LOGOUT',
   ERROR: 'ERROR'
 }
@@ -28,6 +29,10 @@ const AuthReducer = (state, action) => {
       return {
         ...initalState, token: action.data.token, user: action.data.user
       }
+    case actionTypes.REGISTER:
+      return {
+        ...initalState, token: action.data.token, user: action.data.user
+      }
     case actionTypes.ERROR:
       return {
         ...initalState, error: action.data.error
@@ -44,10 +49,10 @@ const AuthReducer = (state, action) => {
 // Cela permet aux composants consommateurs, donc à placer au dessus des enfants (children), de s’abonner aux mises à jour du contexte
 const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, initalState)
-
   useEffect(() => {
     // Le localStorage ne prend pas en charge les objets, on convertit donc notre objet en string
     window.localStorage.setItem('AUTH', JSON.stringify(state))
+    window.localStorage.setItem('token', JSON.stringify(state.token))
   }, [state])
 
   // prop value à transmettre aux composants consommateurs descendants de ce Provider
@@ -82,9 +87,32 @@ const loginUser = async (credentials, dispatch) => {
   }
 }
 
+const registerUser = async (RegisterInfos, dispatch) => {
+  try {
+    const data = await register(RegisterInfos)
+    console.log('RegisterInfos', RegisterInfos)
+    dispatch({
+      type: actionTypes.REGISTER,
+      data: {
+        user: data.user,
+        token: data.token
+      }
+    })
+  } catch (error) {
+    console.log('error', error)
+    dispatch({
+      type: actionTypes.ERROR,
+      data: {
+        error: error.message
+      }
+    })
+  }
+}
+
 export {
   useAuth,
   AuthProvider,
   actionTypes,
-  loginUser
+  loginUser,
+  registerUser
 }

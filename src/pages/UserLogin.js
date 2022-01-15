@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Login from '../components/Auth/Login'
-import Profile from '../components/Auth/Profile'
-import { actionTypes, loginUser, useAuth } from '../contexts/AuthContext'
+import { loginUser, useAuth } from '../contexts/AuthContext'
+import UserProfile from './UserProfile'
 
 export default function UserLogin () {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -26,17 +26,11 @@ export default function UserLogin () {
     await navigate('/profile')
   }
 
-  const logout = () => {
-    dispatch({
-      type: actionTypes.LOGOUT
-    })
-  }
-
   return (
     <div>
       {
         isLoggedIn
-          ? <Profile logout={logout} />
+          ? <UserProfile userProfile={user} />
           : <Login
               submit={handleSubmit}
               error={error}

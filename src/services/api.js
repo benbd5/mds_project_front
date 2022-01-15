@@ -67,31 +67,18 @@ const deleteSession = async (id) => {
 // Credentials = paramètres d'auth (email, passwd)
 const login = async (credentials) => {
   try {
-    console.log('credentials', credentials)
     const response = await api.post('/auth/login', credentials)
-    console.log('response', response)
     return response.data
   } catch (error) {
-    console.error(error)
     throw new Error(error.message)
   }
 }
 
 const register = async (RegisterInfos) => {
   try {
-    console.log('RegisterInfos', RegisterInfos)
     const response = await api.post('/auth/register', RegisterInfos)
-    console.log('response', response)
-    // Sauvegarde du token dans le localStorage
-    if (response.data && response.data.token) {
-      window.localStorage.setItem('token', response.data.token)
-    }
-    return {
-      error: null,
-      data: response.data
-    }
+    return response.data
   } catch (error) {
-    console.error(error)
     return {
       error: error,
       data: null
@@ -102,12 +89,11 @@ const register = async (RegisterInfos) => {
 const getProfile = async () => {
   try {
     const token = window.localStorage.getItem('token')
-    console.log('window.localStorage', window.localStorage)
-    console.log('token', token)
     if (token) {
       const response = await api.get('/profile', {
         headers: {
-          Authorization: `Bearer ${token}`
+          // Slice pour enlever les guillemets "" au début et à la fin de la valeur du token contenu dans le localStorage
+          Authorization: `Bearer ${token.slice(1, -1)}`
         }
       })
       return response.data

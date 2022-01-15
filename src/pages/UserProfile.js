@@ -1,17 +1,21 @@
-import { useContext } from 'react'
 import Profile from '../components/Auth/Profile'
-import { useAuth } from '../contexts/AuthContext'
-import { getProfile } from '../services/api'
+import { actionTypes, useAuth } from '../contexts/AuthContext'
+import { useNavigate } from 'react-router-dom'
 
-export default function UserProfile() {
-  console.log('window.localStorage', window.localStorage.getItem('token'))
-  getProfile()
-  const context = useAuth()
-  console.log('context', context.state.token)
-  console.log(context)
+export default function UserProfile () {
+  const { dispatch, state: { user } } = useAuth()
+  const navigate = useNavigate()
+
+  const logout = () => {
+    dispatch({
+      type: actionTypes.LOGOUT
+    })
+    navigate('/auth/login')
+  }
+
   return (
     <div>
-      <Profile />
+      <Profile userProfile={user} logout={logout} />
     </div>
   )
 }
