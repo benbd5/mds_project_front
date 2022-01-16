@@ -1,7 +1,6 @@
 import React from 'react'
 
 export default function Profile ({ logout, userProfile }) {
-  console.log('userProfile', userProfile)
   return (
     <div>
       <h2>Vous êtes connecté</h2>

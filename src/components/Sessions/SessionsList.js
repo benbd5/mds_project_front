@@ -16,6 +16,7 @@ export default function SessionsList ({ session }) {
                 <p>{item.place}</p>
                 <p>{moment(item.date).format('DD/MM/YYYY')}</p>
               </Link>
+              <button className='btn btn-primary'>Rejoindre</button>
               <hr />
             </div>
           )
