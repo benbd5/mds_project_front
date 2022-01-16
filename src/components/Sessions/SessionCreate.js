@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { createSession } from '../../services/api'
 import DateInput from '../Form/DateInput'
@@ -8,16 +9,23 @@ import TextInput from '../Form/TextInput'
 export default function SessionCreate ({ data, onChange }) {
   const navigate = useNavigate()
 
+  const [error, setError] = useState([])
+
   const handleChange = (e) => {
     onChange({
       ...data,
       [e.target.name]: e.target.value
     })
   }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await createSession(data)
-    await navigate('/sessions')
+    try {
+      await createSession(data)
+      await navigate('/sessions')
+    } catch (error) {
+      setError(error)
+    }
   }
 
   return (
@@ -56,6 +64,16 @@ export default function SessionCreate ({ data, onChange }) {
         <button className='btn btn-primary' type='submit'>
           Créer
         </button>
+
+        {
+          error &&
+          (
+            <div>
+              <h4>{error.message}</h4>
+            </div>
+          )
+        }
+
       </form>
     </div>
   )

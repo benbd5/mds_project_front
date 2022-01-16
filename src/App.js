@@ -2,7 +2,6 @@ import {
   Routes,
   Route
 } from 'react-router-dom'
-import Home from './components/Home'
 import Navbar from './components/Navbar/Navbar'
 import SessionInfos from './pages/SessionInfos'
 import CreateSession from './pages/CreateSession'
@@ -19,7 +18,6 @@ function App () {
       <AuthProvider>
         <Navbar />
         <Routes>
-          <Route path='/' element={<Home />} />
           <Route path='/auth/register' element={<UserRegister />} />
           <Route path='/auth/login' element={<UserLogin />} />
           <Route path='/profile' element={<UserProfile />} />

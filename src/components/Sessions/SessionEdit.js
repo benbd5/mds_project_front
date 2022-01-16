@@ -1,4 +1,5 @@
 import moment from 'moment'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { patchSession } from '../../services/api'
 import DateInput from '../Form/DateInput'
@@ -6,8 +7,9 @@ import SelectInput from '../Form/SelectInput'
 import TextArea from '../Form/TextArea'
 import TextInput from '../Form/TextInput'
 
-export default function SessionEdit({ data, onChange }) {
+export default function SessionEdit ({ data, onChange }) {
   const navigate = useNavigate()
+  const [error, setError] = useState([])
 
   const handleChange = (e) => {
     onChange({
@@ -18,8 +20,12 @@ export default function SessionEdit({ data, onChange }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await patchSession(data)
-    navigate('/sessions')
+    try {
+      await patchSession(data)
+      await navigate('/sessions')
+    } catch (error) {
+      setError(error)
+    }
   }
 
   return (
@@ -58,6 +64,14 @@ export default function SessionEdit({ data, onChange }) {
         <button className='btn btn-primary' type='submit'>
           Modifier
         </button>
+        {
+          error &&
+          (
+            <div>
+              <h4>{error.message}</h4>
+            </div>
+          )
+        }
       </form>
     </div>
   )

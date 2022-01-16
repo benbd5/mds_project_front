@@ -40,6 +40,7 @@ const AuthReducer = (state, action) => {
     case actionTypes.LOGOUT:
       // On vide le localstorage et retourne l'état initial = null
       window.localStorage.removeItem('AUTH')
+      window.localStorage.removeItem('token')
       return initalState
     default:
       throw new Error(`Unhandled action type : ${action.type}`)
@@ -77,7 +78,6 @@ const loginUser = async (credentials, dispatch) => {
       }
     })
   } catch (error) {
-    console.log('error', error)
     dispatch({
       type: actionTypes.ERROR,
       data: {
@@ -90,7 +90,6 @@ const loginUser = async (credentials, dispatch) => {
 const registerUser = async (RegisterInfos, dispatch) => {
   try {
     const data = await register(RegisterInfos)
-    console.log('RegisterInfos', RegisterInfos)
     dispatch({
       type: actionTypes.REGISTER,
       data: {
@@ -99,7 +98,6 @@ const registerUser = async (RegisterInfos, dispatch) => {
       }
     })
   } catch (error) {
-    console.log('error', error)
     dispatch({
       type: actionTypes.ERROR,
       data: {

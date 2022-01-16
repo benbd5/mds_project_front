@@ -1,14 +1,16 @@
 import Profile from '../components/Auth/Profile'
 import { actionTypes, useAuth } from '../contexts/AuthContext'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { getProfile } from '../services/api'
 import { useEffect, useState } from 'react'
 
 export default function UserProfile () {
-  const { dispatch } = useAuth()
+  const { dispatch, state: { user } } = useAuth()
   const navigate = useNavigate()
 
   const [profileInfos, setProfileInfos] = useState([])
+
+  const location = useLocation()
 
   const getData = async () => {
     const profileInfos = await getProfile()
@@ -19,16 +21,19 @@ export default function UserProfile () {
     getData()
   }, [])
 
-  const logout = () => {
+  const logout = async () => {
     dispatch({
       type: actionTypes.LOGOUT
     })
-    navigate('/sessions')
+    await navigate('/sessions')
   }
 
-  return (
-    <div>
-      <Profile userProfile={profileInfos} logout={logout} />
-    </div>
-  )
+  if (user) {
+    return (
+      <div>
+        <Profile userProfile={profileInfos} logout={logout} />
+      </div>
+    )
+  }
+  return <Navigate to='/auth/login' state={{ from: location }} replace />
 }

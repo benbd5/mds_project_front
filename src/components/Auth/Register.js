@@ -73,9 +73,16 @@ export default function Register ({ submit, error }) {
           value={formData.password}
           onChange={handleChange}
         />
-        <button type='submit' className='btn btn-primary'>
-          S'inscrire
-        </button>
+        <input type='submit' value='Inscription' className='btn btn-primary' />
+
+        {
+          error &&
+          (
+            <div>
+              <h4>{error}</h4>
+            </div>
+          )
+        }
       </form>
     </div>
   )
