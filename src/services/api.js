@@ -12,7 +12,7 @@ const getSessions = async () => {
     const response = await api.get('/sessions')
     return response.data
   } catch (error) {
-    throw new Error(error.message)
+    throw new Error(error.response.data)
   }
 }
 
@@ -21,8 +21,7 @@ const getSportValues = async () => {
     const response = await api.get('/sport-values')
     return response.data
   } catch (error) {
-    console.error(error)
-    throw new Error(error.message)
+    throw new Error(error.response.data)
   }
 }
 
@@ -31,7 +30,7 @@ const getOneSession = async (sessionId) => {
     const response = await api.get(`/session/${sessionId}`)
     return (response.data)
   } catch (error) {
-    console.error(error)
+    throw new Error(error.response.data)
   }
 }
 
@@ -41,6 +40,8 @@ const createSession = async (newSession) => {
     return response.data
   } catch (error) {
     console.error(error)
+
+    throw new Error(error.response.data)
   }
 }
 
@@ -50,7 +51,7 @@ const patchSession = async (editSession) => {
     const response = await api.patch(`/edit_session/${editSession._id}`, { session: editSession })
     return response.data
   } catch (error) {
-    console.error(error)
+    throw new Error(error.response.data)
   }
 }
 
@@ -59,7 +60,7 @@ const deleteSession = async (id) => {
     const response = await api.delete('/delete_session', { data: { id } })
     return response.data
   } catch (error) {
-    console.error(error)
+    throw new Error(error.response.data)
   }
 }
 
@@ -70,7 +71,7 @@ const login = async (credentials) => {
     const response = await api.post('/auth/login', credentials)
     return response.data
   } catch (error) {
-    throw new Error(error.message)
+    throw new Error(error.response.data)
   }
 }
 
@@ -79,10 +80,7 @@ const register = async (RegisterInfos) => {
     const response = await api.post('/auth/register', RegisterInfos)
     return response.data
   } catch (error) {
-    return {
-      error: error,
-      data: null
-    }
+    throw new Error(error.response.data)
   }
 }
 
@@ -99,7 +97,7 @@ const getProfile = async () => {
       return response.data
     }
   } catch (error) {
-    console.log(error)
+    throw new Error(error.response.data)
   }
 }
 
