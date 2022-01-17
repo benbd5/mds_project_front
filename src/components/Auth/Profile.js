@@ -1,11 +1,21 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { deleteSession } from '../../services/api'
 
-export default function Profile ({ logout, userProfile }) {
-  const navigate = useNavigate()
+const moment = require('moment')
 
-  if (userProfile[0] && userProfile[1]) {
-    const sessionsOfUser = userProfile[1].map((item, i) => {
+export default function Profile({ logout, userProfile }) {
+  const navigate = useNavigate()
+  console.log(userProfile[0]);
+  console.log(userProfile[1]);
+  console.log(userProfile[2]);
+  /**
+   * 3 tableaux :
+   *  - [0] = données concernant l'utilisateur
+   *  - [1] = données concernant les sessions qu'il a créé
+   *  - [2] = données concernant l'utilisateur
+  */
+  if (userProfile[0] && userProfile[1] && userProfile[2]) {
+    const sessionsOfUser = userProfile[1].map((item) => {
       const handleDelete = async () => {
         if (window.confirm('Voulez-vous vraiment supprimer ?')) {
           await deleteSession(item._id)
@@ -18,6 +28,7 @@ export default function Profile ({ logout, userProfile }) {
           <p>Description : {item.description}</p>
           <p>Lieu : {item.place}</p>
           <p>Date : {item.date}</p>
+          <p>Les participants : {item.members.lenght > 0 ? item.members.lenght + ' particants' : 'Aucun participant'}</p>
           <Link to={`/edit-session/${item._id}`}>
             <button className='btn btn-primary' type='submit'>
               Modifier
@@ -26,6 +37,20 @@ export default function Profile ({ logout, userProfile }) {
           <button className='btn btn-primary' onClick={handleDelete}>
             Supprimer
           </button>
+          <hr />
+        </div>
+      )
+    })
+
+    const participationOfSessionForUser = userProfile[2].map((item) => {
+      return (
+        <div key={item._id}>
+          <Link to={`/session/${item._id}`} >
+            <p>Sport : {item.sport}</p>
+            <p>Description : {item.description}</p>
+            <p>Lieu : {item.place}</p>
+            <p>Date : {moment(item.date).format('DD/MM/YYYY')}</p>
+          </Link>
           <hr />
         </div>
       )
@@ -43,8 +68,12 @@ export default function Profile ({ logout, userProfile }) {
           <p>Téléphone : {userProfile[0].phone}</p>
         </div>
         <div>
-          <h3>Les sessions liées à votre profile</h3>
+          <h3>Vos sessions</h3>
           {sessionsOfUser}
+        </div>
+        <div>
+          <h3>Les sessions auxquelles vous participez</h3>
+          {participationOfSessionForUser}
         </div>
       </div>
     )

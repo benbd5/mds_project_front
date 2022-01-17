@@ -30,6 +30,7 @@ const getOneSession = async (sessionId) => {
     const response = await api.get(`/session/${sessionId}`)
     return (response.data)
   } catch (error) {
+    console.error(error);
     throw new Error(error.response.data)
   }
 }
@@ -59,6 +60,23 @@ const deleteSession = async (id) => {
   try {
     const response = await api.delete('/delete_session', { data: { id } })
     return response.data
+  } catch (error) {
+    throw new Error(error.response.data)
+  }
+}
+
+const memberOfSession = async (idSession, id) => {
+  try {
+    const token = window.localStorage.getItem('token')
+    if (token) {
+      const response = await api.patch(`/member/${idSession}`, { data: { id } }, {
+        headers: {
+          // Slice pour enlever les guillemets "" au début et à la fin de la valeur du token contenu dans le localStorage
+          Authorization: `Bearer ${token.slice(1, -1)}`
+        }
+      })
+      return response.data
+    }
   } catch (error) {
     throw new Error(error.response.data)
   }
@@ -108,6 +126,7 @@ export {
   createSession,
   patchSession,
   deleteSession,
+  memberOfSession,
   register,
   login,
   getProfile
