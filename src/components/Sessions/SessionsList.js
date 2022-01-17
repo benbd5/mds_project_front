@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 const moment = require('moment')
 
-export default function SessionsList({ session }) {
+export default function SessionsList ({ session }) {
   /* Retourne la liste des sessions avec le lien pour accéder à une session en particulier avec son id */
   return (
     <div>

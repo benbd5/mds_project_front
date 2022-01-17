@@ -12,7 +12,7 @@ import UserRegister from './pages/UserRegister'
 import UserLogin from './pages/UserLogin'
 import UserProfile from './pages/UserProfile'
 
-function App() {
+function App () {
   return (
     <div className='App'>
       <AuthProvider>

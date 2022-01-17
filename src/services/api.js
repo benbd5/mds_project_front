@@ -30,7 +30,7 @@ const getOneSession = async (sessionId) => {
     const response = await api.get(`/session/${sessionId}`)
     return (response.data)
   } catch (error) {
-    console.error(error);
+    console.error(error)
     throw new Error(error.response.data)
   }
 }
@@ -119,6 +119,26 @@ const getProfile = async () => {
   }
 }
 
+const addProfilePicture = async (formData) => {
+  console.log(formData)
+  try {
+    const token = window.localStorage.getItem('token')
+    if (token) {
+      const response = await api.patch('/profile/image', formData, {
+        headers: {
+          // Slice pour enlever les guillemets "" au début et à la fin de la valeur du token contenu dans le localStorage
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token.slice(1, -1)}`
+        }
+      })
+      console.log('response.data', response.data)
+      return response.data
+    }
+  } catch (error) {
+    throw new Error(error.response.data)
+  }
+}
+
 export {
   getSessions,
   getSportValues,
@@ -129,5 +149,6 @@ export {
   memberOfSession,
   register,
   login,
-  getProfile
+  getProfile,
+  addProfilePicture
 }

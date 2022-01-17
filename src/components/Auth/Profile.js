@@ -3,11 +3,9 @@ import { deleteSession } from '../../services/api'
 
 const moment = require('moment')
 
-export default function Profile({ logout, userProfile }) {
+export default function Profile ({ logout, userProfile, handleSubmit, handleFileChange, image, status }) {
   const navigate = useNavigate()
-  console.log(userProfile[0]);
-  console.log(userProfile[1]);
-  console.log(userProfile[2]);
+
   /**
    * 3 tableaux :
    *  - [0] = données concernant l'utilisateur
@@ -45,7 +43,7 @@ export default function Profile({ logout, userProfile }) {
     const participationOfSessionForUser = userProfile[2].map((item) => {
       return (
         <div key={item._id}>
-          <Link to={`/session/${item._id}`} >
+          <Link to={`/session/${item._id}`}>
             <p>Sport : {item.sport}</p>
             <p>Description : {item.description}</p>
             <p>Lieu : {item.place}</p>
@@ -60,6 +58,18 @@ export default function Profile({ logout, userProfile }) {
       <div>
         <h2>Vous êtes connecté</h2>
         <button onClick={logout} className='btn btn-primary'>Se déconnecter</button>
+
+        <div className='profilPicture'>
+          <h3>Upload to server</h3>
+          {image.preview && <img src={image.preview} width='100' height='100' />}
+          <hr />
+          <form onSubmit={handleSubmit}>
+            <input type='file' name='file' onChange={handleFileChange} />
+            <button type='submit'>Submit</button>
+          </form>
+          {status && <h4>{status}</h4>}
+        </div>
+
         <div>
           <h3>Informations concernant votre profile</h3>
           <p>Prénom : {userProfile[0].firstname}</p>
