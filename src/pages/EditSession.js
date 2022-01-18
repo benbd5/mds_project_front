@@ -14,10 +14,10 @@ export default function EditSession () {
     }
     getData()
   }, [])
-
+  console.log('edit', oneSession[0])
   return (
     <div>
-      <SessionEdit data={oneSession} onChange={setOneSession} />
+      <SessionEdit data={oneSession[0]} onChange={setOneSession} />
     </div>
   )
 }

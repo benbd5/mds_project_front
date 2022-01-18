@@ -11,6 +11,7 @@ export default function NavbarHeader () {
       <div>
         <Navbar collapseOnSelect expand='sm' bg='dark' variant='dark' className='mb-3'>
           <Container>
+            <Navbar.Brand href='/'><img src='/images/surfer.png' style={{ width: '40px', color: 'white' }} /></Navbar.Brand>
             <Navbar.Toggle aria-controls='responsive-navbar-nav' />
             <Navbar.Collapse id='responsive-navbar-nav'>
               <Nav className='me-auto'>

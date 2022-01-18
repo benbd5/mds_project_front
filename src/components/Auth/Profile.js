@@ -22,17 +22,19 @@ export default function Profile ({ logout, userProfile, handleSubmit, handleFile
       }
       return (
         <div key={item._id}>
-          <p>Sport : {item.sport}</p>
+          <Link to={`/session/${item._id}`}>
+            <p>{item.sport}</p>
+          </Link>
           <p>Description : {item.description}</p>
           <p>Lieu : {item.place}</p>
           <p>Date : {item.date}</p>
-          <p>Les participants : {item.members.lenght > 0 ? item.members.lenght + ' particants' : 'Aucun participant'}</p>
+          <p>Les participants : {item.members.length > 0 ? item.members.length + ' participants' : 'Aucun participant'}</p>
           <Link to={`/edit-session/${item._id}`}>
-            <button className='btn btn-primary' type='submit'>
+            <button className='btn btn-warning' type='submit'>
               Modifier
             </button>
           </Link>
-          <button className='btn btn-primary' onClick={handleDelete}>
+          <button className='btn btn-danger' onClick={handleDelete}>
             Supprimer
           </button>
           <hr />
@@ -91,6 +93,6 @@ export default function Profile ({ logout, userProfile, handleSubmit, handleFile
       </div>
     )
   } else {
-    return <p>Données en cous de chargement...</p>
+    return <p>Données en cours de chargement...</p>
   }
 }
