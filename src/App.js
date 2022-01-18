@@ -2,7 +2,6 @@ import {
   Routes,
   Route
 } from 'react-router-dom'
-import Navbar from './components/Navbar/Navbar'
 import SessionInfos from './pages/SessionInfos'
 import CreateSession from './pages/CreateSession'
 import EditSession from './pages/EditSession'
@@ -11,12 +10,14 @@ import { AuthProvider } from './contexts/AuthContext'
 import UserRegister from './pages/UserRegister'
 import UserLogin from './pages/UserLogin'
 import UserProfile from './pages/UserProfile'
+import Header from './pages/Header'
+import Footer from './pages/Footer'
 
 function App () {
   return (
     <div className='App'>
       <AuthProvider>
-        <Navbar />
+        <Header />
         <Routes>
           <Route path='/' element={<Sessions />} />
           <Route path='/auth/register' element={<UserRegister />} />
@@ -27,6 +28,7 @@ function App () {
           <Route path='/create-sessions' element={<CreateSession />} />
           <Route path='/edit-session/:id' element={<EditSession />} />
         </Routes>
+        <Footer />
       </AuthProvider>
     </div>
   )

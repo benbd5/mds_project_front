@@ -10,27 +10,30 @@ export default function SessionInfos ({ oneSession, isMember }) {
     })
 
     return (
-      <div>
-        <p>{oneSession[0].sport}</p>
-        <p>{oneSession[0].description}</p>
-        <p>{oneSession[0].place}</p>
-        <p>{moment(oneSession[0].date).format('DD/MM/YYYY')}</p>
-        <div>
-          <h3>Les participants</h3>
-          <p>{uniqueMember.length > 0 ? uniqueMember.length + ' particants' : 'Aucun participant'}</p>
-          {
-            oneSession[1].map(item => {
-              return (
-                <div key={item._id}>
-                  <p>{item.firstname}</p>
-                </div>
+      <div className='container'>
+        <div className='row'>
+          <h3 className='text-center'>{oneSession[0].sport}</h3>
+          <p>{oneSession[0].description}</p>
+          <p>Lieu : {oneSession[0].place}</p>
+          <p>Date : {moment(oneSession[0].date).format('DD/MM/YYYY')}</p>
+
+          <div className='row'>
+            <h3 className='text-center'>Les participants</h3>
+            <p>{uniqueMember.length > 0 ? uniqueMember.length + ' particants' : 'Aucun participant'}</p>
+            {
+              oneSession[1].map(item => {
+                return (
+                  <div key={item._id}>
+                    <p>{item.firstname}</p>
+                  </div>
+                )
+              }
               )
             }
-            )
-          }
+          </div>
+          <button onClick={isMember} className='btn btn-primary'>Rejoindre</button>
+          <hr />
         </div>
-        <button onClick={isMember} className='btn btn-primary'>Rejoindre</button>
-        <hr />
       </div>
     )
   } else {

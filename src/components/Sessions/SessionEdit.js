@@ -29,8 +29,8 @@ export default function SessionEdit ({ data, onChange }) {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className='container'>
+      <form onSubmit={handleSubmit} className='form-control form-control-lg'>
         <SelectInput
           name='sport'
           label='Sport'
@@ -61,9 +61,12 @@ export default function SessionEdit ({ data, onChange }) {
           value={moment(data.date).format('YYYY-MM-DD')}
         />
 
-        <button className='btn btn-primary' type='submit'>
-          Modifier
-        </button>
+        <div className='text-center'>
+          <button className='btn btn-primary' type='submit'>
+            Modifier
+          </button>
+        </div>
+
         {
           error &&
           (

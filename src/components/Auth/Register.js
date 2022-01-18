@@ -29,8 +29,8 @@ export default function Register ({ submit, error }) {
 
   return (
     <div className='container'>
-      <h2>Inscription</h2>
-      <form onSubmit={handleSubmit}>
+      <h2 className='text-center'>Inscription</h2>
+      <form onSubmit={handleSubmit} className='form-control form-control-lg'>
         <TextInput
           type='text'
           label='Nom'
@@ -73,7 +73,9 @@ export default function Register ({ submit, error }) {
           value={formData.password}
           onChange={handleChange}
         />
-        <input type='submit' value='Inscription' className='btn btn-primary' />
+        <div className='text-center'>
+          <input type='submit' value='Inscription' className='btn btn-primary' />
+        </div>
 
         {
           error &&

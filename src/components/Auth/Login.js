@@ -21,9 +21,8 @@ export default function Login ({ submit, error }) {
 
   return (
     <div className='container'>
-      <h2>Se connecter</h2>
-      <form onSubmit={handleSubmit}>
-        <br />
+      <h2 className='text-center'>Connexion</h2>
+      <form onSubmit={handleSubmit} className='form-control form-control-lg'>
         <TextInput
           type='email'
           label='Email'
@@ -31,7 +30,6 @@ export default function Login ({ submit, error }) {
           value={formData.email}
           onChange={handleChange}
         />
-        <br />
         <TextInput
           type='password'
           label='Password'
@@ -39,8 +37,9 @@ export default function Login ({ submit, error }) {
           value={formData.password}
           onChange={handleChange}
         />
-        <br />
-        <input type='submit' value='Se connecter' className='btn btn-primary' />
+        <div className='text-center'>
+          <input type='submit' value='Se connecter' className='btn btn-primary' />
+        </div>
         {
           error &&
           (

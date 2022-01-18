@@ -44,23 +44,24 @@ export default function Profile ({ logout, userProfile, handleSubmit, handleFile
       return (
         <div key={item._id}>
           <Link to={`/session/${item._id}`}>
-            <p>Sport : {item.sport}</p>
-            <p>Description : {item.description}</p>
-            <p>Lieu : {item.place}</p>
-            <p>Date : {moment(item.date).format('DD/MM/YYYY')}</p>
+            <p>{item.sport}</p>
           </Link>
+          <p>Description : {item.description}</p>
+          <p>Lieu : {item.place}</p>
+          <p>Date : {moment(item.date).format('DD/MM/YYYY')}</p>
           <hr />
         </div>
       )
     })
 
     return (
-      <div>
-        <h2>Vous êtes connecté</h2>
+      <div className='container'>
+        <h2 className='text-center'>Mon profile</h2>
         <button onClick={logout} className='btn btn-primary'>Se déconnecter</button>
+        <br />
 
-        <div className='profilPicture'>
-          <h3>Upload to server</h3>
+        {/* <div className='profilPicture'>
+          <h3>Photo de profil</h3>
           {image.preview && <img src={image.preview} width='100' height='100' />}
           <hr />
           <form onSubmit={handleSubmit}>
@@ -68,21 +69,23 @@ export default function Profile ({ logout, userProfile, handleSubmit, handleFile
             <button type='submit'>Submit</button>
           </form>
           {status && <h4>{status}</h4>}
-        </div>
+        </div> */}
+        <br />
 
         <div>
-          <h3>Informations concernant votre profile</h3>
+          <h3>Mes informations</h3>
           <p>Prénom : {userProfile[0].firstname}</p>
           <p>Nom : {userProfile[0].lastname}</p>
           <p>Email : {userProfile[0].email}</p>
           <p>Téléphone : {userProfile[0].phone}</p>
         </div>
         <div>
-          <h3>Vos sessions</h3>
-          {sessionsOfUser}
+          <h3>Mes sessions créées</h3>
+          {sessionsOfUser.length ? sessionsOfUser : "Je n'ai pas encore créé de session"}
         </div>
+        <br />
         <div>
-          <h3>Les sessions auxquelles vous participez</h3>
+          <h3>Les sessions auxquelles je participe</h3>
           {participationOfSessionForUser}
         </div>
       </div>

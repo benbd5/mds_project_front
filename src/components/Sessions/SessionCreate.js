@@ -29,8 +29,8 @@ export default function SessionCreate ({ data, onChange }) {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className='container'>
+      <form onSubmit={handleSubmit} className='form-control form-control-lg'>
         <SelectInput
           name='sport'
           label='Sport'
@@ -61,9 +61,11 @@ export default function SessionCreate ({ data, onChange }) {
           value={data.date}
         />
 
-        <button className='btn btn-primary' type='submit'>
-          Créer
-        </button>
+        <div className='text-center'>
+          <button className='btn btn-primary' type='submit'>
+            Créer
+          </button>
+        </div>
 
         {
           error &&
