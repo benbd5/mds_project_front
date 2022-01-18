@@ -7,7 +7,7 @@ import SelectInput from '../Form/SelectInput'
 import TextArea from '../Form/TextArea'
 import TextInput from '../Form/TextInput'
 
-export default function SessionEdit({ data, onChange }) {
+export default function SessionEdit ({ data, onChange }) {
   const navigate = useNavigate()
   const [error, setError] = useState([])
 
