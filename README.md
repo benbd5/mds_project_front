@@ -13,3 +13,11 @@ Vous pouvez télarcher l'image docker de mon projet avec la commande suivante :
 
 Puis, le démarrer avec :
 ### `docker run -it -p 3000:3000 benbd5/mds_front`
+
+--
+## Pour le front en react :
+Vous pouvez aussi télarcher l'image docker de mon projet avec la commande suivante :
+### `docker pull benbd5/mds_back`
+
+Puis, le démarrer avec :
+### `docker run -it -p 3000:3000 benbd5/mds_back`
