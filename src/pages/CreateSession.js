@@ -10,7 +10,7 @@ export default function CreateSession () {
   const location = useLocation()
 
   const [session, setSession] = useState({
-    sport: '',
+    sport: 'Surf',
     description: '',
     place: '',
     date: '',

@@ -35,7 +35,7 @@ export default function SessionCreate ({ data, onChange }) {
           name='sport'
           label='Sport'
           onChange={handleChange}
-          value={data.sport}
+          value={data.sport ? data.sport : 'Surf'}
         />
         <TextArea
           name='description'
