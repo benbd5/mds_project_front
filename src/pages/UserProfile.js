@@ -37,6 +37,7 @@ export default function UserProfile () {
     formData.append('file', image.data)
     const response = await addProfilePicture(formData)
     if (response) setStatus(response.statusText)
+    window.location.reload()
   }
 
   const handleFileChange = (e) => {
