@@ -37,7 +37,13 @@ const getOneSession = async (sessionId) => {
 
 const createSession = async (newSession) => {
   try {
-    const response = await api.post('/add', newSession)
+    const token = window.localStorage.getItem('token')
+    const response = await api.post('/add', newSession, {
+      headers: {
+        // Slice pour enlever les guillemets "" au début et à la fin de la valeur du token contenu dans le localStorage
+        Authorization: `Bearer ${token.slice(1, -1)}`
+      }
+    })
     return response.data
   } catch (error) {
     console.error(error)
@@ -48,8 +54,14 @@ const createSession = async (newSession) => {
 
 const patchSession = async (editSession) => {
   try {
+    const token = window.localStorage.getItem('token')
     // On renvoit l'objet session identique à celui attendu dans node.js
-    const response = await api.patch(`/edit_session/${editSession._id}`, { session: editSession })
+    const response = await api.patch(`/edit_session/${editSession._id}`, { session: editSession }, {
+      headers: {
+        // Slice pour enlever les guillemets "" au début et à la fin de la valeur du token contenu dans le localStorage
+        Authorization: `Bearer ${token.slice(1, -1)}`
+      }
+    })
     return response.data
   } catch (error) {
     throw new Error(error.response.data)
@@ -58,7 +70,13 @@ const patchSession = async (editSession) => {
 
 const deleteSession = async (id) => {
   try {
-    const response = await api.delete('/delete_session', { data: { id } })
+    const token = window.localStorage.getItem('token')
+    const response = await api.delete('/delete_session', { data: { id } }, {
+      headers: {
+        // Slice pour enlever les guillemets "" au début et à la fin de la valeur du token contenu dans le localStorage
+        Authorization: `Bearer ${token.slice(1, -1)}`
+      }
+    })
     return response.data
   } catch (error) {
     throw new Error(error.response.data)
@@ -131,7 +149,6 @@ const addProfilePicture = async (formData) => {
           Authorization: `Bearer ${token.slice(1, -1)}`
         }
       })
-      console.log('response.data', response.data)
       return response.data
     }
   } catch (error) {
