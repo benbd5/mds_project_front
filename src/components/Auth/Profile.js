@@ -13,7 +13,9 @@ export default function Profile ({ logout, userProfile, handleSubmit, handleFile
    *  - [2] = données concernant l'utilisateur
   */
   if (userProfile[0] && userProfile[1] && userProfile[2]) {
+    // Affiche les sessions que l'utilisateur a créé
     const sessionsOfUser = userProfile[1].map((item) => {
+      // Fonction de suppression des éléments
       const handleDelete = async () => {
         if (window.confirm('Voulez-vous vraiment supprimer ?')) {
           await deleteSession(item._id)
@@ -42,6 +44,7 @@ export default function Profile ({ logout, userProfile, handleSubmit, handleFile
       )
     })
 
+    // Affiche les participations de l'utilisateur à une session
     const participationOfSessionForUser = userProfile[2].map((item) => {
       return (
         <div key={item._id}>
@@ -56,22 +59,33 @@ export default function Profile ({ logout, userProfile, handleSubmit, handleFile
       )
     })
 
+    // Affiche les input pour ajouter une image
+    const displayFormToSendImage = (
+      <div className='profilPicture'>
+        {image.preview && <img src={image.preview} width='100' height='100' />}
+        <hr />
+        <form onSubmit={handleSubmit}>
+          <input type='file' name='file' onChange={handleFileChange} />
+          <button type='submit' className='btn btn-info'>
+            {userProfile[0].pictureProfile ? 'Modifier votre photo de profile' : 'Envoyer'}
+          </button>
+        </form>
+        {status && <h4>{status}</h4>}
+      </div>
+    )
+
+    // La photo de profile de l'utilisateur
+    const pictureProfileExist = <img src={'http://localhost:4000/' + userProfile[0].pictureProfile} width='100' height='100' />
+
     return (
       <div className='container'>
         <h2 className='text-center'>Mon profile</h2>
-        <button onClick={logout} className='btn btn-primary'>Se déconnecter</button>
+        <button href='/sessions' onClick={logout} className='btn btn-primary'>Se déconnecter</button>
         <br />
 
-        {/* <div className='profilPicture'>
-          <h3>Photo de profil</h3>
-          {image.preview && <img src={image.preview} width='100' height='100' />}
-          <hr />
-          <form onSubmit={handleSubmit}>
-            <input type='file' name='file' onChange={handleFileChange} />
-            <button type='submit'>Submit</button>
-          </form>
-          {status && <h4>{status}</h4>}
-        </div> */}
+        {pictureProfileExist}
+        {displayFormToSendImage}
+
         <br />
 
         <div>

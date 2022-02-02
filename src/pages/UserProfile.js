@@ -34,8 +34,6 @@ export default function UserProfile () {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const formData = new FormData()
-    console.log('formData', formData)
-    console.log('image', image.data)
     formData.append('file', image.data)
     const response = await addProfilePicture(formData)
     if (response) setStatus(response.statusText)

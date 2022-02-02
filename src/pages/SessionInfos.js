@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import SessionInfos from '../components/Sessions/SessionInfos'
 import { getOneSession, memberOfSession } from '../services/api'
 
@@ -24,6 +24,9 @@ export default function InfosSession () {
 
   return (
     <div>
+      <div className='mb-3'>
+        <Link to='/sessions'>Retourner aux sessions</Link>
+      </div>
       <SessionInfos oneSession={oneSession} isMember={isMember} />
     </div>
   )
