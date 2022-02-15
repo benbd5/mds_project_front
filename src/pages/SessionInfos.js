@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import SessionInfos from '../components/Sessions/SessionInfos'
 import { getOneSession, memberOfSession } from '../services/api'
 
-export default function InfosSession() {
+export default function InfosSession () {
   const [oneSession, setOneSession] = useState([])
 
   const { id } = useParams()

@@ -7,17 +7,19 @@ export default function EditSession () {
   const [oneSession, setOneSession] = useState([])
   const { id } = useParams()
 
+  const getData = async () => {
+    // Utiliser une promesse pour renvoyer la valeur 0 du tableau correspondant aux données de la session
+    const oneSession = await getOneSession(id).then(res => (res[0]))
+    setOneSession(oneSession)
+  }
+
   useEffect(() => {
-    const getData = async () => {
-      const oneSession = await getOneSession(id)
-      setOneSession(oneSession)
-    }
     getData()
   }, [])
-  console.log('edit', oneSession[0])
+
   return (
     <div>
-      <SessionEdit data={oneSession[0]} onChange={setOneSession} />
+      <SessionEdit data={oneSession} onChange={setOneSession} />
     </div>
   )
 }

@@ -37,6 +37,6 @@ export default function SessionInfos ({ oneSession, isMember }) {
       </div>
     )
   } else {
-    return <p>Données en cous de chargement...</p>
+    return <p>Données en cours de chargement...</p>
   }
 }
