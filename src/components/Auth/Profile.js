@@ -1,11 +1,9 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { deleteSession } from '../../services/api'
 
 const moment = require('moment')
 
 export default function Profile ({ logout, userProfile, handleSubmit, handleFileChange, image, status }) {
-  const navigate = useNavigate()
-
   /**
    * 3 tableaux :
    *  - [0] = données concernant l'utilisateur
@@ -19,7 +17,7 @@ export default function Profile ({ logout, userProfile, handleSubmit, handleFile
       const handleDelete = async () => {
         if (window.confirm('Voulez-vous vraiment supprimer ?')) {
           await deleteSession(item._id)
-          await navigate('/profile')
+          await window.location.reload()
         }
       }
       return (
